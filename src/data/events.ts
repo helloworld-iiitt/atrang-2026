@@ -155,50 +155,113 @@ https://forms.gle/NMWYGiV9Qst6AX4CA
   {
     id: "startup-sprint",
     title: "Startup Sprint",
-    summary: "Turn an idea into a startup in just 24 hours through innovation, validation, and pitching.",
-    description: `E-CELL IIIT TRICHY PRESENTS
+    summary:
+      "Turn an idea into a startup in 24 hours through problem discovery, customer validation, MVP development, and pitching.",
+
+    description: `🚀 E-CELL IIIT TRICHY PRESENTS
 
 🏁 STARTUP SPRINT — 24-HOUR STARTUP HACKATHON
 
-📝 Register here:
+Got a startup idea? Have a problem you want to solve?
+Turn your idea into a potential business in just 24 hours!
+
+📝 REGISTER NOW:
 https://forms.gle/JxqLdKHSDnDPXqs5A
 
-Have a startup idea or want to build something from scratch? Turn your idea into a startup in just 24 hours!
+💡 THE STARTUP JOURNEY
 
-What to Expect?
+1. PROBLEM STATEMENT
+Identify and define a real-world problem worth solving.
 
-• Identify a real-world problem and define your problem statement.
-• Develop an innovative solution.
-• Validate your idea by interacting with potential users.
+2. SOLUTION DEVELOPMENT
+Develop an innovative, practical solution to the problem.
+
+3. IDEA VALIDATION
+Interact with potential users to validate your problem and proposed solution.
+
+4. OVERNIGHT MVP
+Build a Minimum Viable Product (MVP) within the 24-hour time limit.
+
+5. FINAL PITCH
+Present your problem, solution, MVP, validation findings, and business potential to the judges.
+
+🏆 PRIZE POOL: ₹6,000
+🥇 1st Prize: ₹4,000
+🥈 Runner-up: ₹2,000
+
+🔥 WHAT YOU'LL GAIN
 • Build an MVP overnight.
-• Pitch your startup to the judges.
+• Validate your idea with potential users.
+• Experience real-world product development.
+• Explore entrepreneurship and business strategy.
+• Pitch your idea to judges.
 
-Complete each stage to move one step closer to winning!
+📋 RULES
+• Team size: 1–6 members, as stated in the event details.
+• Complete all five stages within the 24-hour time limit.
+• Demonstrate your MVP during the final presentation.
+• Present evidence of customer interactions and idea validation.
+• Explain the problem, solution, validation, MVP, and business potential in your final pitch.
 
-🏆 Prize Pool: ₹6,000
-1st Prize: ₹4,000
-Runner-up: ₹2,000
+🧑‍⚖️ JUDGING CRITERIA
+• Problem identification and validation.
+• Innovation and solution quality.
+• MVP execution and functionality.
+• Business potential and feasibility.
+• Pitch quality and presentation.
 
-Think fast. Build smart. Pitch big.`,
+THINK FAST. BUILD SMART. PITCH BIG.
+
+Your startup journey starts here!`,
+
     category: "Entrepreneurship",
     organizer: "E-Cell IIIT Trichy",
     participation: "Team",
-    teamSize: "As specified by organizers",
+    teamSize: "1–6 members",
     duration: "24 hours",
-    prize: "₹6,000 pool — ₹4,000 winner · ₹2,000 runner-up",
+    prize: "₹6,000 pool — ₹4,000 first prize · ₹2,000 runner-up",
     registrationUrl: "https://forms.gle/JxqLdKHSDnDPXqs5A",
+
     schedule: [
-      { day: 2, time: "10:00 AM", title: "Sprint begins", venue: "Seminar Hall 213" },
-      { day: 2, time: "2:00 PM – 8:00 PM", title: "Build and validate", venue: "Lab 302" },
-      { day: 3, time: "10:00 AM – 1:00 PM", title: "Final push and pitches", venue: "Lab 302" },
+      {
+        day: 2,
+        time: "10:00 AM",
+        title: "Sprint Begins — Problem Statement",
+        venue: "Seminar Hall 213",
+      },
+      {
+        day: 2,
+        time: "2:00 PM – 8:00 PM",
+        title: "Solution Development & Idea Validation",
+        venue: "Lab 302",
+      },
+      {
+        day: 3,
+        time: "10:00 AM – 1:00 PM",
+        title: "MVP Demonstrations & Final Pitches",
+        venue: "Lab 302",
+      },
     ],
+
     highlights: [
-      "24-hour startup hackathon",
-      "Problem identification and validation",
-      "Build an MVP",
+      "24-hour startup-building hackathon",
+      "Identify and solve real-world problems",
+      "Validate ideas with potential users",
+      "Build a Minimum Viable Product overnight",
       "Pitch to judges",
-      "Prize pool: ₹6,000",
+      "Prize pool of ₹6,000",
     ],
+
+    rules: [
+      "Each team may have 1–6 members, based on the supplied event details.",
+      "Teams must complete all five stages of the event.",
+      "All work must be completed within the 24-hour time limit.",
+      "Teams must demonstrate their MVP during the final presentation.",
+      "Customer interactions and idea-validation findings should be presented as evidence.",
+      "The final pitch should cover the problem, solution, MVP, validation results, and business potential.",
+      "Final evaluation will consider problem validation, solution quality, MVP execution, business potential, and pitch presentation.",
+    ],
+
     coordinators: [{ name: "Nishant Singh" }, { name: "Palash Patel" }],
   },
   {
@@ -215,8 +278,6 @@ The NetSec Club, IIIT Tiruchirappalli is bringing you an exciting tech experienc
 
 ⚡ What's waiting for you?
 🔐 CTF Challenges
-💻 Technical Workshops
-🎤 Tech Talks
 🚀 And much more!
 
 🧭 ROUNDS
