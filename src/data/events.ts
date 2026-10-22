@@ -1,4 +1,4 @@
-import { CodeXml, Laptop, Rocket, ShieldCheck } from "lucide-react";
+import { Bot, CodeXml, Gamepad2, Laptop, Rocket, ShieldCheck } from "lucide-react";
 import type { Biome, FestEventOf } from "@/types/event";
 
 /**
@@ -12,21 +12,103 @@ import type { Biome, FestEventOf } from "@/types/event";
  *                  (pick one at https://lucide.dev/icons and add it to the import
  *                  above). It appears on the site as soon as an event uses it.
  *
+ * Change a date:   edit FEST_DAYS. Every event's schedule refers to day numbers,
+ *                  so all of them follow automatically.
+ *
  * Everything else — the biome picker, filters, counts, card colours, particle
- * colours, and page descriptions — is generated from this file.
+ * colours, dates, and page descriptions — is generated from this file.
  */
 
+/** Calendar date of each fest day (YYYY-MM-DD). */
+export const FEST_DAYS = {
+  1: "2026-10-23",
+  2: "2026-10-24",
+  3: "2026-10-25",
+} as const;
+
 export const BIOMES = {
+  Inagural: { name: "Atrang Arena", color: "#ff5a4f", icon: Gamepad2 },
+  Hackathon: { name: "Hackers' Hollow", color: "#a46bff", icon: Laptop },
+  Cybersecurity: { name: "Firewall Fortress", color: "#4fa8ff", icon: ShieldCheck },
   Coding: { name: "Syntax Peaks", color: "#34c27a", icon: CodeXml },
   Entrepreneurship: { name: "Startup Savanna", color: "#f0a23b", icon: Rocket },
-  Cybersecurity: { name: "Firewall Fortress", color: "#4fa8ff", icon: ShieldCheck },
-  Hackathon: { name: "Hackers' Hollow", color: "#a46bff", icon: Laptop },
+  Robotics: { name: "Iron Foundry", color: "#b9c2cf", icon: Bot },
+  "Fun Zone": { name: "Arcade Badlands", color: "#ff5a4f", icon: Gamepad2 },
 } satisfies Record<string, Biome>;
 
+export type FestDay = keyof typeof FEST_DAYS;
 export type EventCategory = keyof typeof BIOMES;
-export type FestEvent = FestEventOf<EventCategory>;
+export type FestEvent = FestEventOf<EventCategory, FestDay>;
 
 export const EVENTS: readonly FestEvent[] = [
+  {
+    id: "inauguration-ceremony",
+    title: "Atrang Inauguration Ceremony",
+    summary:
+      "The grand opening of Atrang 2026 — bringing together faculty, students, and the organizing team to begin the celebration.",
+
+    description: `🎉 ATRANG 2026 — INAUGURATION CEREMONY
+
+✨ THE CELEBRATION BEGINS HERE!
+
+Join us for the grand inauguration of ATRANG 2026, our college's annual technical fest. Be part of the opening ceremony as we come together to celebrate innovation, creativity, technology, and student talent.
+
+🎓 CHIEF FACULTY GUEST
+Dr. R. Krishnamurthy
+Extra-Curricular In-Charge
+
+🏛️ FACULTY REPRESENTATION
+Head of the Department
+Assistant Professor
+
+🎤 STUDENT COORDINATORS
+
+Technical Secretary: Ayush Soni
+Host: Shubhanashi Payasi — +91 7489550689
+Coordinator: Hemeshkumar S — 9345046883
+
+📅 DATE: 23 October 2026
+⏰ TIME: 10:00 AM
+📍 VENUE: Room 312
+
+🚀 A NEW CHAPTER. A NEW EXPERIENCE.
+LET ATRANG 2026 BEGIN!
+
+`,
+
+    category: "Inagural",
+    organizer: "Atrang Organizing Committee",
+    participation: "Individual",
+    teamSize: "Not applicable",
+    prize: "No prizes",
+    registrationUrl: "",
+
+    schedule: [
+      { day: 1, time: "10:00 AM – 11:30 AM", title: "Inauguration Ceremony", venue: "Room 312" },
+    ],
+
+    highlights: [
+      "Grand opening of Atrang 2026",
+      "Faculty and student representation",
+      "Celebration of innovation, creativity, and technology",
+      "Opening ceremony with speeches and performances",
+    ],
+
+    coordinators: [
+      {
+        name: "Ayush Soni",
+        phone: "+91 73398 89592",
+      },
+      {
+        name: "Shubhanashi Payasi",
+        phone: "+91 74895 50689",
+      },
+      {
+        name: "Hemeshkumar S",
+        phone: "+91 93450 46883",
+      },
+    ],
+  },
   {
     id: "clash-of-coders",
     title: "Clash of Coders",
@@ -47,23 +129,28 @@ CLASH. COMPETE. CONQUER.
 📲 REGISTER NOW:
 https://forms.gle/NMWYGiV9Qst6AX4CA
 
-💻 THE CLASH IS READY. ARE YOU?
-
-For queries, contact:
-Tanish Patidar - +91 91658 49391
-Aditya Raj - +91 70043 72711
-Shaik Sareen - +91 81060 85774
-Syed Adam - +91 99667 86351`,
+💻 THE CLASH IS READY. ARE YOU?`,
     category: "Coding",
+    organizer: "Competitive Programming Club",
     participation: "Team",
-    teamSize: "4 members",
+    teamSize: "4 members (mandatory)",
     prize: "₹4,000 winner · ₹2,000 runner-up",
     registrationUrl: "https://forms.gle/NMWYGiV9Qst6AX4CA",
+    schedule: [
+      { day: 2, time: "2:00 PM – 5:00 PM", title: "Contest — session 1", venue: "Hall 312" },
+      { day: 3, time: "10:00 AM – 1:00 PM", title: "Contest — session 2", venue: "Seminar Hall 213" },
+    ],
     highlights: [
       "Competitive programming",
       "Winner: ₹4,000",
       "Runner-up: ₹2,000",
       "Presented by Competitive Programming Club",
+    ],
+    coordinators: [
+      { name: "Tanish Patidar", phone: "+91 91658 49391" },
+      { name: "Aditya Raj", phone: "+91 70043 72711" },
+      { name: "Shaik Sareen", phone: "+91 81060 85774" },
+      { name: "Syed Adam", phone: "+91 99667 86351" },
     ],
   },
   {
@@ -95,11 +182,17 @@ Runner-up: ₹2,000
 
 Think fast. Build smart. Pitch big.`,
     category: "Entrepreneurship",
+    organizer: "E-Cell IIIT Trichy",
     participation: "Team",
     teamSize: "As specified by organizers",
     duration: "24 hours",
     prize: "₹6,000 pool — ₹4,000 winner · ₹2,000 runner-up",
     registrationUrl: "https://forms.gle/JxqLdKHSDnDPXqs5A",
+    schedule: [
+      { day: 2, time: "10:00 AM", title: "Sprint begins", venue: "Seminar Hall 213" },
+      { day: 2, time: "2:00 PM – 8:00 PM", title: "Build and validate", venue: "Lab 302" },
+      { day: 3, time: "10:00 AM – 1:00 PM", title: "Final push and pitches", venue: "Lab 302" },
+    ],
     highlights: [
       "24-hour startup hackathon",
       "Problem identification and validation",
@@ -107,6 +200,7 @@ Think fast. Build smart. Pitch big.`,
       "Pitch to judges",
       "Prize pool: ₹6,000",
     ],
+    coordinators: [{ name: "Nishant Singh" }, { name: "Palash Patel" }],
   },
   {
     id: "netsec-club",
@@ -126,25 +220,60 @@ The NetSec Club, IIIT Tiruchirappalli is bringing you an exciting tech experienc
 🎤 Tech Talks
 🚀 And much more!
 
+🧭 ROUNDS
+• Round 1 — Prelims: 12 web and security challenges on the Level 1 stack. Top teams qualify.
+• Round 2 — Finals: 10 advanced web, API, and privilege-escalation challenges on the Level 2 stack.
+• Round 3 — Workshop & Talk: solution walkthroughs, a cybersecurity tech talk, and prize distribution.
+
+🏁 Scoring: total points on the live scoreboard at the end of the time limit. Ties go to the team that reached its final score first.
+
+💻 Bring a laptop with charger and Wi-Fi, and a modern browser (Chrome/Firefox). Useful tools: Burp Suite Community Edition, curl, Python 3, or Kali Linux/WSL.
+
+❓ Beginners welcome — Round 1 is designed for newcomers to web security. Kali Linux is not mandatory. Cross-year and cross-department teams are welcome.
+
 📝 Interested in participating? Fill out the registration form below!
 
 👉 https://forms.gle/GC1UHVuyxbJqKuNg6
-
-📢 Make sure to fill out the form and stay tuned for more updates!
 
 🔥 ATRANG 2026 — Same Internet. Different Perspectives.
 
 Organised by NetSec Club, IIIT Tiruchirappalli 🛡️`,
     category: "Cybersecurity",
-    participation: "Individual or Team",
+    organizer: "NetSec Club, IIIT Tiruchirappalli",
+    participation: "Team",
+    teamSize: "2–3 members",
+    duration: "3 hours per round",
     prize: "₹6,000 pool — ₹4,000 first · ₹2,000 second",
+    venue: "Hall 312",
+    eligibility: "Open to all",
+    fee: "Free",
     registrationUrl: "https://forms.gle/GC1UHVuyxbJqKuNg6",
+    registrationDeadline: "Friday, 10:00 AM",
+    schedule: [
+      { day: 1, time: "2:00 PM – 5:00 PM", title: "Round 1 — CTF Prelims", venue: "Hall 312" },
+      { day: 2, time: "10:00 AM – 1:00 PM", title: "Round 2 — CTF Finals", venue: "Hall 312" },
+      { day: 3, time: "10:00 AM – 1:00 PM", title: "Round 3 — Workshop, talk & prizes", venue: "Hall 312" },
+    ],
     highlights: [
       "CTF challenges",
       "Technical workshops",
       "Tech talks",
       "Prize pool: ₹6,000",
       "Organised by NetSec Club",
+    ],
+    rules: [
+      "No AI tools or LLMs (ChatGPT, Claude, Copilot, etc.) during active rounds.",
+      "Attacking the CTF infrastructure, the scoring portal, or other participants is prohibited (instant ban).",
+      "No DoS/DDoS attacks against target labs.",
+      "Sharing flags, hints, or credentials between teams is forbidden.",
+      "Laptops must connect only to the authorised event network.",
+      "Organisers' decisions are final in all disputes.",
+    ],
+    coordinators: [
+      { name: "Aditya Patel", phone: "+91 82006 79211" },
+      { name: "Sudhishana Mallavarapu", phone: "+91 77299 22099" },
+      { name: "Himanshu Gunwant", phone: "+91 79838 84182" },
+      { name: "Goutham G", phone: "+91 83040 91475" },
     ],
   },
   {
@@ -178,12 +307,26 @@ Stranger Things, Game of Thrones, Minecraft, Marvel, and more.
 
 Additional evaluation criteria may also apply.
 
+📦 SUBMIT
+A working website, a new GitHub repository with a complete README, a live or local demo, and a presentation. Public deployment is not mandatory — a local demo is accepted.
+
 ⚠️ Violations of the rules may result in disqualification.
 
 Build something original. Bring a universe to life. Make it unforgettable.`,
     category: "Hackathon",
+    organizer: "Web Dev Club",
     participation: "Team",
     teamSize: "3–4 members",
+    duration: "48 hours",
+    prize: "₹6,000 pool — ₹4,000 winner · ₹2,000 runner-up",
+    eligibility: "IIIT Tiruchirappalli students only",
+    fee: "Free",
+    registrationUrl: "https://forms.gle/2Xrqr5sPn64X3jjX6",
+    schedule: [
+      { day: 1, time: "11:00 AM", title: "Kickoff & problem statement release", venue: "Hall 312" },
+      { day: 1, time: "2:00 PM onwards", title: "Build phase", venue: "Online" },
+      { day: 3, time: "2:00 PM – 5:00 PM", title: "Presentations & awards", venue: "Hall 312" },
+    ],
     highlights: [
       "Movie, series, and gaming-inspired websites",
       "Open-source resources only",
@@ -192,5 +335,103 @@ Build something original. Bring a universe to life. Make it unforgettable.`,
       "System design and creativity",
       "Presentation and demonstration",
     ],
+    coordinators: [
+      { name: "Arushi Sharma", phone: "+91 96949 11426" },
+      { name: "Bhuvan M Acharya", phone: "+91 96066 54776" },
+      { name: "Ashmit Singh" },
+      { name: "Lalit Adhitya K" },
+    ],
+  },
+  {
+    id: "robo-rush",
+    title: "Robo Rush",
+    summary:
+      "Build, compete, and dominate in a multi-round robotic arena featuring Obstacle Crash, Robo Sumo, and Speed Run.",
+    description: `🤖 ROBO RUSH — Presented by Robotics Club, IIIT Trichy | ATRANG 2026
+
+Get ready for an electrifying bot showdown of precision, power, and speed! Build and pilot your custom robots across three intense rounds of combat and agility.
+
+🏁 ROUNDS
+• Round 1 — Obstacle Crash: navigate the arena and push designated obstacles out of the zone within a fixed time limit.
+• Round 2 — Robo Sumo: head-to-head robot wrestling — push your opponent completely out of the combat ring.
+• Round 3 — Speed Run: race through a complex timed obstacle course. Fastest valid run wins.
+
+🏆 JUDGING
+Points for obstacles cleared in Round 1, match wins and ring-outs in Round 2, and the fastest completion time in Round 3. Cumulative points decide the podium.
+
+🧰 WHAT TO BRING
+An operational robot (custom or pre-built chassis) ready for technical inspection, a dedicated controller or transmitter, battery packs and chargers, backup power cells, and a repair kit.
+
+🔩 PARTS & SOFTWARE
+Open hardware designs, off-the-shelf motor drivers, sensors, transceivers, and chassis components are allowed, along with Arduino IDE, PlatformIO, ROS, Python, or standard microcontroller firmware tools.
+
+❓ FAQ
+• Wired or wireless? Both control mechanisms are allowed.
+• Mixed teams? Yes — cross-branch and cross-year teams are welcome.
+• Bot damaged mid-round? Teams get a short pit stop between bouts and runs for repairs.
+
+Register online before Round 1, or on the spot.`,
+    category: "Robotics",
+    organizer: "Robotics Club, IIIT Trichy",
+    participation: "Team",
+    teamSize: "4 members",
+    duration: "3 hours per day",
+    venue: "Seminar Hall 213",
+    eligibility: "Open to all students",
+    fee: "Free",
+    registrationUrl: "https://forms.gle/NVGH6uSehBxA2uLn9",
+    registrationDeadline: "Before Round 1 (on-the-spot registration available)",
+    schedule: [
+      { day: 1, time: "5:00 PM – 8:00 PM", title: "Round 1 — Obstacle Crash", venue: "Seminar Hall 213" },
+      { day: 2, time: "5:00 PM – 8:00 PM", title: "Round 2 — Robo Sumo", venue: "Seminar Hall 213" },
+      { day: 3, time: "2:00 PM – 5:00 PM", title: "Round 3 — Speed Run", venue: "Seminar Hall 213" },
+    ],
+    highlights: [
+      "Custom bot engineering",
+      "Multi-terrain arena navigation",
+      "Head-to-head Robo Sumo",
+      "High-speed agility track",
+      "Free entry",
+    ],
+    rules: [
+      "Both wired and wireless remote-controlled robots are permitted.",
+      "Robots must meet the safety, dimension, and weight limits checked during pre-match inspection.",
+      "Damaging arena infrastructure or unsportsmanlike conduct leads to immediate disqualification.",
+      "Teams must be at the venue before their scheduled match slot.",
+      "Referees' and organisers' decisions are final in all rounds.",
+    ],
+    coordinators: [
+      { name: "Abilashini V", phone: "+91 99409 95449" },
+      { name: "Shashank H", phone: "+91 98448 76641" },
+    ],
+  },
+  {
+    id: "side-quest",
+    title: "Side Quest",
+    summary:
+      "Take a break from the main quests — fun games, quizzes, PS4 and VR gaming, soapy football, and stalls all fest long.",
+    description: `🎮 SIDE QUEST — ATRANG 2026
+
+Every adventure needs a few side quests. Between rounds, drop in for games, challenges, and good food across all three days of Atrang.
+
+🕹️ WHAT'S ON
+• Fun games and quiz — Day 1
+• PS4 and VR gaming — Day 2
+• Soapy football — Day 2
+• Stalls on the ground — all three days
+
+Walk in, play, and level up your fest.`,
+    category: "Fun Zone",
+    participation: "Individual or Team",
+    schedule: [
+      { day: 1, time: "11:00 AM – 8:00 PM", title: "Fun games and quiz", venue: "Lab 216" },
+      { day: 1, time: "All day", title: "Stalls", venue: "Ground" },
+      { day: 2, time: "10:00 AM – 8:00 PM", title: "PS4 and VR gaming", venue: "Lab 216" },
+      { day: 2, time: "10:00 AM – 8:00 PM", title: "Soapy football", venue: "Ground" },
+      { day: 2, time: "All day", title: "Stalls", venue: "Ground" },
+      { day: 3, time: "Until 5:00 PM", title: "Stalls", venue: "Ground" },
+    ],
+    highlights: ["Fun games and quiz", "PS4 and VR gaming", "Soapy football", "Stalls all three days"],
+    coordinators: [{ name: "Raj Aryan" }, { name: "Aashish Yadav" }],
   },
 ];

@@ -3,6 +3,7 @@
 import { Cpu, Lightbulb, Swords, Users } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { FEST } from "@/lib/constants";
+import { FEST_DATE_RANGE } from "@/lib/events";
 import { closePanel, usePanel } from "@/lib/ui-store";
 import { InstagramIcon } from "../branding/InstagramIcon";
 import { MinecraftButton } from "../minecraft/MinecraftButton";
@@ -98,7 +99,8 @@ export function AboutModal() {
           </MinecraftButton>
         </div>
         <p className="border-l-4 border-gold/70 pl-3 text-sm">
-          Dates, venue, and the official event line-up will be announced by the Atrang organising team.
+          Atrang {FEST.edition} runs {FEST_DATE_RANGE} at {FEST.college}. Full schedules are on each
+          event&apos;s page.
         </p>
       </div>
     </Modal>

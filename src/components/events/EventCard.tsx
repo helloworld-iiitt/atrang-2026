@@ -1,10 +1,10 @@
 "use client";
 
-import { Clock, User, Users } from "lucide-react";
+import { CalendarDays, Clock, User, Users } from "lucide-react";
 import type { CSSProperties } from "react";
 import { useBlockBreak } from "@/hooks/useBlockBreak";
 import type { FestEvent } from "@/data/events";
-import { getEventTheme } from "@/lib/events";
+import { eventDateRange, getEventTheme } from "@/lib/events";
 import { BreakableBlock } from "../minecraft/BreakableBlock";
 import { IsoCube } from "./IsoCube";
 
@@ -27,6 +27,7 @@ export function EventCard({ event, onSelect }: EventCardProps) {
     particles: 22,
   });
   const ParticipationIcon = event.participation === "Individual" ? User : Users;
+  const dates = eventDateRange(event);
 
   return (
     <article
@@ -62,6 +63,12 @@ export function EventCard({ event, onSelect }: EventCardProps) {
         </div>
 
         <ul className="mt-auto flex flex-wrap gap-x-4 gap-y-1 text-xs text-mist">
+          {dates ? (
+            <li className="inline-flex items-center gap-1.5 text-bone">
+              <CalendarDays aria-hidden className="size-3.5" />
+              {dates}
+            </li>
+          ) : null}
           {event.participation ? (
             <li className="inline-flex items-center gap-1.5">
               <ParticipationIcon aria-hidden className="size-3.5" />

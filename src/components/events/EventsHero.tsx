@@ -4,7 +4,7 @@ import { ChevronsDown } from "lucide-react";
 import { useSoundEffects } from "@/hooks/useSoundEffects";
 import { FEST } from "@/lib/constants";
 import type { EventCategory } from "@/data/events";
-import { ACTIVE_CATEGORIES, getCategoryTheme } from "@/lib/events";
+import { ACTIVE_CATEGORIES, FEST_DATE_RANGE, getCategoryTheme } from "@/lib/events";
 import { PixelHeading } from "../branding/PixelHeading";
 import { IsoCube } from "./IsoCube";
 
@@ -21,7 +21,7 @@ export function EventsHero({ eventCount, onPickCategory }: EventsHeroProps) {
       className="relative mx-auto flex min-h-[calc(100svh-4rem)] w-full max-w-7xl flex-col justify-center gap-10 px-4 py-16 sm:px-6"
     >
       <div className="max-w-3xl">
-        <PixelHeading as="h1" id="events-title" eyebrow={`${FEST.name} ${FEST.edition} · World map`}>
+        <PixelHeading as="h1" id="events-title" eyebrow={`${FEST.name} ${FEST.edition} · ${FEST_DATE_RANGE}`}>
           Explore the world of Atrang
         </PixelHeading>
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-bone/90 sm:text-xl">

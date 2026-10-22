@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { BIOMES, EVENTS, type EventCategory, type FestEvent } from "@/data/events";
+import { BIOMES, EVENTS, FEST_DAYS, type EventCategory, type FestDay, type FestEvent } from "@/data/events";
 
 /**
  * Everything the UI needs is derived from `src/data/events.ts` here, so adding an
@@ -27,6 +27,11 @@ function validate() {
       throw new Error(
         `events.ts: event "${event.id}" has color "${event.color}"; use a 6-digit hex like "#a46bff"`,
       );
+    }
+  }
+  for (const [day, date] of Object.entries(FEST_DAYS)) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      throw new Error(`events.ts: FEST_DAYS[${day}] is "${date}"; use YYYY-MM-DD like "2026-10-23"`);
     }
   }
   for (const [key, biome] of Object.entries(BIOMES)) {
@@ -97,7 +102,7 @@ export function filterEvents(
     if (category !== "All" && event.category !== category) return false;
     if (terms.length === 0) return true;
     const haystack = normalize(
-      `${event.title} ${event.summary} ${event.description} ${BIOMES[event.category].name}`,
+      `${event.title} ${event.summary} ${event.description} ${BIOMES[event.category].name} ${event.organizer ?? ""}`,
     );
     return terms.every((term) => haystack.includes(term));
   });
@@ -111,3 +116,42 @@ export function countByCategory(events: readonly FestEvent[]): Record<CategoryFi
   }
   return counts;
 }
+
+// ---------- dates ----------
+// Formatted by hand (not Intl) so server-rendered and browser-rendered text always match.
+
+const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] as const;
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] as const;
+
+function parts(day: FestDay) {
+  const [y, m, d] = FEST_DAYS[day].split("-").map(Number);
+  const weekday = WEEKDAYS[new Date(Date.UTC(y, m - 1, d)).getUTCDay()];
+  return { year: y, month: MONTHS[m - 1], date: d, weekday };
+}
+
+/** e.g. "Fri 23 Oct" */
+export function formatFestDay(day: FestDay): string {
+  const p = parts(day);
+  return `${p.weekday} ${p.date} ${p.month}`;
+}
+
+function formatRange(first: FestDay, last: FestDay, withYear = false): string {
+  const a = parts(first);
+  const b = parts(last);
+  const year = withYear ? ` ${b.year}` : "";
+  if (first === last) return `${a.weekday} ${a.date} ${a.month}${year}`;
+  if (a.month === b.month) return `${a.weekday} ${a.date} – ${b.weekday} ${b.date} ${b.month}${year}`;
+  return `${a.weekday} ${a.date} ${a.month} – ${b.weekday} ${b.date} ${b.month}${year}`;
+}
+
+/** Date range an event runs over, from its schedule, e.g. "Fri 23 – Sun 25 Oct". */
+export function eventDateRange(event: FestEvent): string | null {
+  if (!event.schedule?.length) return null;
+  const days = event.schedule.map((slot) => slot.day);
+  return formatRange(Math.min(...days) as FestDay, Math.max(...days) as FestDay);
+}
+
+const FEST_DAY_KEYS = (Object.keys(FEST_DAYS).map(Number) as FestDay[]).sort((a, b) => a - b);
+
+/** Whole-fest date range, e.g. "Fri 23 – Sun 25 Oct 2026". */
+export const FEST_DATE_RANGE = formatRange(FEST_DAY_KEYS[0], FEST_DAY_KEYS[FEST_DAY_KEYS.length - 1], true);
