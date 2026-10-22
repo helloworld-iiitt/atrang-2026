@@ -1,0 +1,28 @@
+# Dependencies and build output are recreated inside the image
+node_modules
+.next
+out
+*.tsbuildinfo
+next-env.d.ts
+
+# Version control, editors, and OS files
+.git
+.gitignore
+.idea
+.vscode
+.DS_Store
+
+# Local environment files (pass settings as build args / env vars instead)
+.env*
+!.env.example
+
+# Docker files themselves
+Dockerfile
+.dockerignore
+compose.yaml
+
+# Raw source audio (processed copies live in public/audio)
+/*.mp3
+
+# Logs
+npm-debug.log*

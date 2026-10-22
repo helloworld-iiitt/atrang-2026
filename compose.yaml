@@ -1,0 +1,23 @@
+# Run with: docker compose up -d --build
+# Settings come from a .env file next to this one (see .env.example).
+
+services:
+  atrang:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
+    image: atrang:latest
+    container_name: atrang
+    restart: unless-stopped
+    ports:
+      - "${ATRANG_PORT:-3000}:3000"
+    # The site is fully static at runtime, so the container filesystem can be read-only.
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /app/.next/cache
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL

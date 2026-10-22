@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Pixelify_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import { AboutModal } from "@/components/home/AboutModal";
 import { AppProviders } from "@/components/layout/AppProviders";
 import { BlockParticleBurst } from "@/components/minecraft/BlockParticleBurst";
@@ -9,8 +9,19 @@ import { WorldBackground } from "@/components/world/WorldBackground";
 import { FEST, SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
-const pixel = Pixelify_Sans({ subsets: ["latin"], variable: "--font-pixelify", display: "swap" });
-const sans = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
+// Fonts are bundled (SIL Open Font License) so builds need no access to Google Fonts.
+const pixel = localFont({
+  src: "./fonts/PixelifySans-Variable.woff2",
+  weight: "400 700",
+  variable: "--font-pixelify",
+  display: "swap",
+});
+const sans = localFont({
+  src: "./fonts/Geist-Variable.woff2",
+  weight: "100 900",
+  variable: "--font-geist",
+  display: "swap",
+});
 
 const TITLE = `${FEST.name} ${FEST.edition} · ${FEST.tagline}`;
 

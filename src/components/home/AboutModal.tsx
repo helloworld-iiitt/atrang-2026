@@ -4,6 +4,7 @@ import { Cpu, Lightbulb, Swords, Users } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { FEST } from "@/lib/constants";
 import { closePanel, usePanel } from "@/lib/ui-store";
+import { InstagramIcon } from "../branding/InstagramIcon";
 import { MinecraftButton } from "../minecraft/MinecraftButton";
 import { Modal } from "../ui/Modal";
 
@@ -81,6 +82,21 @@ export function AboutModal() {
             </li>
           ))}
         </ul>
+        <div className="mc-panel mc-panel--slate flex flex-col items-start gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm leading-snug">
+            Updates, announcements, and behind-the-scenes from the Atrang team on Instagram.
+          </p>
+          <MinecraftButton
+            href={FEST.instagram.url}
+            external
+            size="sm"
+            icon={<InstagramIcon className="size-4" strokeWidth={2.5} />}
+            className="shrink-0 normal-case"
+          >
+            @{FEST.instagram.handle}
+            <span className="sr-only"> on Instagram (opens in a new tab)</span>
+          </MinecraftButton>
+        </div>
         <p className="border-l-4 border-gold/70 pl-3 text-sm">
           Dates, venue, and the official event line-up will be announced by the Atrang organising team.
         </p>

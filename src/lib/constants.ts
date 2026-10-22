@@ -7,6 +7,7 @@ export const FEST = {
   motto: "A new world awaits",
   description:
     "Atrang is the annual technical fest of IIIT Tiruchirappalli — a world built by students, for builders, coders, designers, and dreamers.",
+  instagram: { handle: "atrang.iiitt", url: "https://www.instagram.com/atrang.iiitt/" },
 } as const;
 
 /** Set NEXT_PUBLIC_SITE_URL to the deployed origin so social previews resolve absolute URLs. */

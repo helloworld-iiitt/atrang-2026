@@ -29,9 +29,45 @@ npm run dev        # http://localhost:3000
 | `npm run format`    | Prettier                                           |
 | `npm run textures`  | Regenerate the pixel textures and favicon          |
 
+## Running with Docker
+
+The repo ships a production `Dockerfile` and a `compose.yaml`. The image runs Next.js's standalone server
+(Node 22 on Alpine, ~240 MB) as the non-root `node` user, with a built-in health check.
+
+```bash
+cp .env.example .env          # set NEXT_PUBLIC_SITE_URL and ATRANG_PORT for the server
+docker compose up -d --build  # build the image and start the container
+docker compose ps             # STATUS should read "healthy" after a few seconds
+docker compose logs -f        # follow the server log
+docker compose down           # stop and remove the container
+```
+
+| Setting                | Where                   | Default                 | Notes                                      |
+| ---------------------- | ----------------------- | ----------------------- | ------------------------------------------ |
+| `NEXT_PUBLIC_SITE_URL` | `.env` (build argument) | `http://localhost:3000` | Baked in at build time — rebuild to change |
+| `ATRANG_PORT`          | `.env`                  | `3000`                  | Host port mapped to the container's 3000   |
+
+Without Compose:
+
+```bash
+docker build -t atrang --build-arg NEXT_PUBLIC_SITE_URL=https://your-domain .
+docker run -d --name atrang -p 3000:3000 --restart unless-stopped atrang
+```
+
+Notes for the server:
+
+- **Network during build:** only the npm registry is needed. Fonts are bundled in `src/app/fonts/`, so the
+  build never contacts Google Fonts.
+- **Hardening:** Compose runs the container with a read-only filesystem, all Linux capabilities dropped, and
+  `no-new-privileges`. Next's cache directory and `/tmp` are in-memory `tmpfs` mounts.
+- **Reverse proxy:** to serve on port 80/443 behind nginx or Traefik, proxy to the container's port 3000.
+  Static assets under `/_next/static/` are sent with `Cache-Control: public, max-age=31536000, immutable`.
+- **Updating content:** edit `src/data/events.ts` (or anything else), then `docker compose up -d --build`.
+
 ## Stack
 
-- **Next.js 16** (App Router, Turbopack, Cache Components) with **React 19** and **TypeScript** (strict)
+- **Next.js 16** (App Router, Turbopack, Cache Components, standalone output) with **React 19** and
+  **TypeScript** (strict)
 - **Tailwind CSS 4** — design tokens live in `src/app/globals.css` under `@theme`
 - **Three.js** via **React Three Fiber** and **Drei** for the 3D world
 - **Motion** for modal, grid, and particle animations
@@ -41,6 +77,10 @@ npm run dev        # http://localhost:3000
 
 `three` is pinned to `0.182.x`: newer releases deprecate `THREE.Clock`, which the current stable React Three
 Fiber (9.x) still uses, and that logs a warning on every page load. Upgrade once R3F 10 is stable.
+
+ESLint is on v10 (v9 is end-of-life). Three plugins bundled by `eslint-config-next` (`import`, `jsx-a11y`,
+`react`) haven't widened their declared peer range past v9 yet, so `package.json` has `overrides` pointing them at
+the installed ESLint; their rules run normally. Remove the overrides once those plugins declare v10 support.
 
 ## Customising content
 

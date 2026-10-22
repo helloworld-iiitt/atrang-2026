@@ -11,9 +11,6 @@ export function SiteFooter() {
           <p className="font-pixel text-sm tracking-wider text-bone uppercase">
             {FEST.name} {FEST.edition} · {FEST.college}
           </p>
-          <p className="max-w-md text-sm leading-relaxed text-mist">
-            Event details come from the organising clubs and may be updated as Atrang approaches.
-          </p>
         </div>
         <div className="grid content-start gap-3 md:justify-items-end">
           <nav aria-label="Footer" className="flex gap-4">
@@ -29,7 +26,8 @@ export function SiteFooter() {
           </nav>
           <p className="text-xs leading-relaxed text-mist/80 md:text-right">
             A Minecraft-inspired fan design. Not affiliated with Mojang Studios or Microsoft.
-            <br />© {FEST.edition.slice(0, 4)} {FEST.college}
+            <br />
+            Web-Dev Club © {FEST.edition.slice(0, 4)} {FEST.college}
           </p>
         </div>
       </div>

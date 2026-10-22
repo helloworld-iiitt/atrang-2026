@@ -15,11 +15,11 @@ export type Settings = {
 
 export const DEFAULT_SETTINGS: Settings = {
   sound: false,
-  music: false,
-  volume: 0.6,
+  music: true,
+  volume: 1,
   motion: "system",
   quality: "auto",
-  timeOfDay: "day",
+  timeOfDay: "cycle",
 };
 
 const STORAGE_KEY = "atrang:settings:v1";
