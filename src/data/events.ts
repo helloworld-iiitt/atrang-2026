@@ -1,4 +1,4 @@
-import { Bot, CodeXml, Gamepad2, Laptop, Rocket, ShieldCheck } from "lucide-react";
+import { Atom, Bot, CodeXml, Gamepad2, Laptop, Rocket, ShieldCheck } from "lucide-react";
 import type { Biome, FestEventOf } from "@/types/event";
 
 /**
@@ -34,6 +34,7 @@ export const BIOMES = {
   Entrepreneurship: { name: "Startup Savanna", color: "#f0a23b", icon: Rocket },
   Robotics: { name: "Iron Foundry", color: "#b9c2cf", icon: Bot },
   "Fun Zone": { name: "Arcade Badlands", color: "#ff5a4f", icon: Gamepad2 },
+  Quantum: { name: "Quantum Frontier", color: "#44d7e8", icon: Atom },
 } satisfies Record<string, Biome>;
 
 export type FestDay = keyof typeof FEST_DAYS;
@@ -83,9 +84,7 @@ LET ATRANG 2026 BEGIN!
     prize: "No prizes",
     registrationUrl: "",
 
-    schedule: [
-      { day: 1, time: "10:00 AM – 11:30 AM", title: "Inauguration Ceremony", venue: "Room 312" },
-    ],
+    schedule: [{ day: 1, time: "10:00 AM – 11:30 AM", title: "Inauguration Ceremony", venue: "Room 312" }],
 
     highlights: [
       "Grand opening of Atrang 2026",
@@ -403,6 +402,60 @@ Register online before Round 1, or on the spot.`,
     coordinators: [
       { name: "Abilashini V", phone: "+91 99409 95449" },
       { name: "Shashank H", phone: "+91 98448 76641" },
+    ],
+  },
+  {
+    id: "quantum-club-intro",
+    title: "Quantum Club: Introduction & Qiskit Workshop",
+    summary:
+      "Celebrate the first-ever launch of the Quantum Club at IIIT Tiruchirappalli with an introduction to quantum computing and a hands-on Qiskit workshop.",
+    description: `🌌 QUANTUM CLUB — INAUGURATION & QISKIT WORKSHOP
+
+Be part of a first for IIIT Tiruchirappalli as we introduce the Quantum Club and open the door to the exciting world of quantum computing.
+
+🔬 WHAT TO EXPECT
+• Introduction to the Quantum Club, its goals, and future activities
+• A beginner-friendly introduction to quantum computing
+• A hands-on workshop using Qiskit
+• An opportunity to explore quantum circuits and get started with quantum programming
+
+📅 DATE: 24 October 2026
+⏰ TIME: 2:00 PM – 5:00 PM
+📍 VENUE: 312
+🎟️ ENTRY: Free and open to all
+
+No prior quantum-computing experience is assumed. Bring a laptop and curiosity; any specific setup instructions will be shared by the organizers.
+
+Meet the club, try Qiskit, and take your first step into quantum computing!`,
+    category: "Quantum",
+    organizer: "Quantum Club, IIIT Tiruchirappalli",
+    participation: "Individual",
+    teamSize: "Not applicable",
+    duration: "3 hours",
+    venue: "312",
+    eligibility: "Open to all",
+    fee: "Free",
+    prize: "No prizes — introductory session and workshop",
+    registrationUrl: "",
+    schedule: [
+      {
+        day: 2,
+        time: "2:00 PM – 5:00 PM",
+        title: "Quantum Club Introduction & Hands-on Qiskit Workshop",
+        venue: "312",
+      },
+    ],
+    highlights: [
+      "First Quantum Club inauguration at IIIT Tiruchirappalli",
+      "Introduction to the club and its future activities",
+      "Beginner-friendly quantum computing introduction",
+      "Hands-on Qiskit workshop",
+      "Free entry for all",
+    ],
+    coordinators: [
+      { name: "Shreyash Balasaheb Sabale", phone: "+91 98228 43992" },
+      { name: "Bhuvan M Acharya", phone: "+91 96066 54776" },
+      { name: "Ayush Soni" },
     ],
   },
   {
